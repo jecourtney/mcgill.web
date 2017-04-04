@@ -1,11 +1,11 @@
 namespace McGill.Web
 {
-    public class DoMathThings
+    public static class DoMathThings
     {
-        public int AddTwoNumbers(int num1, int num2)
+        public static int AddThreeNumbers(int x, int y, int z)
         {
             // This is a test
-            return num1 + num2;
+            return x + y + z;
         }
     }
 }
