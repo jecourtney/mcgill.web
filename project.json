@@ -1,10 +1,11 @@
 {
   "version": "1.0.1-*",
   "dependencies": {
-    "NETStandard.Library": "1.6.1"
+    "NETStandard.Library": "1.6.1",
+    "McGill.Library": "1.0.1"
   },
   "frameworks": {
-    "netstandard1.6": {}
+    "netcoreapp1.0": {}
   },
   "buildOptions": {
     "debugType": "portable"
