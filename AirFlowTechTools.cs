@@ -1516,25 +1516,27 @@ namespace McGill.Web
         /// Calculates the acoustical.
         /// </summary>
         /// <param name="sCalcType">Type of the s calculate.</param>
+        /// <param name="nLevels">Number of levels.</parm>
         /// <param name="InputLevels">The input levels.</param>
         /// <param name="dLengthBefore">The d length before.</param>
         /// <param name="dLengthAfter">The d length after.</param>
         /// <param name="dDistance">The d distance.</param>
         /// <param name="OutputLevels">The output levels.</param>
         /// <param name="dOverall">The d overall.</param>
-        public static void CalcAcoustical(string sCalcType, int[,] InputLevels, double dLengthBefore, double dLengthAfter, double dDistance, 
+        public static void CalcAcoustical(string sCalcType, int nColumns, int[,] InputLevels, double dLengthBefore, double dLengthAfter, double dDistance, 
             out int[,] OutputLevels, out double dOverall)
         {
             int[] dbAdj = { 26, 16, 9, 3, 0, 1, 1, -1 };
             double dCalcLogQty = 0;
             OutputLevels = null;
             dOverall = 0;
+            int nRows =  InputLevels.GetLength(1);
 
             if (sCalcType == "AWeighting")
             {
-                OutputLevels = new int[1, InputLevels.GetLength(1)];
+                OutputLevels = new int[1, nRows];
 
-                for (int i = 0; i < InputLevels.GetLength(1); i++)
+                for (int i = 0; i < nRows; i++)
                 {
                     OutputLevels[0, i] = InputLevels[0, i] - dbAdj[i];
                     dCalcLogQty += Math.Pow(10, 0.1 * OutputLevels[0, i]);
@@ -1544,14 +1546,15 @@ namespace McGill.Web
             }
             else if (sCalcType == "Addition")
             {
-                OutputLevels = new int[2, InputLevels.GetLength(1)];
+                OutputLevels = new int[2, nRows];
 
-                double[] octaves = new double[InputLevels.GetLength(1)];
+                double[] octaves = new double[nRows];
                 double dCalcLogQty2 = 0;
 
-                for (int i = 0; i < InputLevels.GetLength(1); i++)
+                for (int i = 0; i < nRows; i++)
                 {
-                    for (int j = 0; j < InputLevels.GetLength(0); j++)
+                    //for (int j = 0; j < InputLevels.GetLength(0); j++)
+                    for (int j = 0; j < nColumns; j++)
                     {
                         dCalcLogQty += Math.Pow(10, 0.1 * InputLevels[j, i]);
                     }
@@ -1568,14 +1571,14 @@ namespace McGill.Web
             }
             else if (sCalcType == "Discharge")
             {
-                OutputLevels = new int[1, InputLevels.GetLength(1)];
+                OutputLevels = new int[1, nRows];
 
-                double[] SoundInSilencer = new double[InputLevels.GetLength(1)];
-                double[] SoundExitSilencerNoGNL = new double[InputLevels.GetLength(1)];
-                double[] SoundExitSilencerWithGNL = new double[InputLevels.GetLength(1)];
-                double[] SoundExit = new double[InputLevels.GetLength(1)];
+                double[] SoundInSilencer = new double[nRows];
+                double[] SoundExitSilencerNoGNL = new double[nRows];
+                double[] SoundExitSilencerWithGNL = new double[nRows];
+                double[] SoundExit = new double[nRows];
 
-                for (int i = 0; i < InputLevels.GetLength(1); i++)
+                for (int i = 0; i < nRows; i++)
                 {
                     SoundInSilencer[i] = InputLevels[0, i] - InputLevels[1, i] * dLengthBefore;
                     SoundExitSilencerNoGNL[i] = SoundInSilencer[i] - InputLevels[2, i];
