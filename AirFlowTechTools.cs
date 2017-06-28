@@ -1871,7 +1871,7 @@ namespace McGill.Web
             {
                 _RectData = new List<string[]>();
 
-                foreach (string sLine in File.ReadAllLines(@"C:\unitedmcgill\wwwroot\bin\RECTNGLR.DAT"))
+                foreach (string sLine in File.ReadAllLines(@"C:\umcdata\RECTNGLR.DAT"))
                 {
                     _RectData.Add(sLine.Split(','));
                 }
