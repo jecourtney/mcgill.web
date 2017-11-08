@@ -1479,7 +1479,7 @@ namespace McGill.Web
                         break;
                 }
 
-                mCalcLength = (mDistance / UMCLib.Sin(mAngle)) - (mCenterline1 * mDiameter * UMCLib.Tan(mAngle / 2M)) + (mCenterline2 * mDiameter * UMCLib.Tan(mAngle / 2));
+                mCalcLength = (mDistance / UMCLib.Sin(mAngle)) - (mCenterline1 * mDiameter * UMCLib.Tan(mAngle / 2M) + mCenterline2 * mDiameter * UMCLib.Tan(mAngle / 2M));
 
                 if (mDiameter < 22M)
                 {
